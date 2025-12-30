@@ -13,7 +13,9 @@
   "dependencies": {
     "@aws-amplify/ui-vue": "^4.3.7",
     "aws-amplify": "^6.15.9",
-    "vue": "^3.4.21"
+    "pinia": "^3.0.4",
+    "vue": "^3.4.21",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.0",
