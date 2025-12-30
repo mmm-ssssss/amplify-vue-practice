@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import "@/assets/main.css";
 import { onMounted, ref } from "vue";
-import type { Schema } from "../../amplify/data/resource";
+import type { Schema } from "../../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
@@ -37,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
+  <v-container fluid>
     <h1>My todos</h1>
     <button @click="createTodo">+ new</button>
     <ul>
@@ -54,5 +53,5 @@ onMounted(() => {
         Review next steps of this tutorial.
       </a>
     </div>
-  </main>
+  </v-container>
 </template>

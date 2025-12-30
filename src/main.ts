@@ -1,4 +1,3 @@
-import "./assets/main.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import { Amplify } from "aws-amplify";
@@ -8,7 +7,6 @@ import { createPinia } from "pinia";
 
 // Vuetify //
 import "vuetify/styles";
-import "@mdi/font/css/materialdesignicons.css"; // おそらくssrを使うとき必要
 import { createVuetify } from "vuetify";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 import * as components from "vuetify/components";

@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import Todos from "./components/Todos.vue";
 import { Authenticator } from "@aws-amplify/ui-vue";
 import "@aws-amplify/ui-vue/styles.css";
-import { RouterView } from "vue-router";
+import HeaderLayout from "@/layouts/HeaderLayout.vue";
 </script>
 
 <template>
-  <main>
-    <Authenticator>
-      <template v-slot="{ user, signOut }">
-        <h1>Hello {{ user?.signInDetails?.loginId }}'s todos</h1>
-        <RouterView />
-        <button @click="signOut">Sign Out</button>
-      </template>
-    </Authenticator>
-  </main>
+  <Authenticator>
+    <template #header>
+      <h2 class="custom-header"></h2>
+    </template>
+    <template #default="{ user, signOut }">
+      <v-app v-if="user">
+        <HeaderLayout :signOut="signOut" />
+      </v-app>
+    </template>
+  </Authenticator>
 </template>
+
+<style scoped>
+.custom-header {
+  height: 20vh;
+}
+</style>

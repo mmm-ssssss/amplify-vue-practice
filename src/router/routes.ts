@@ -1,11 +1,11 @@
-import TodoView from "../components/Todos.vue";
+import Home from "@/pages/home/Home.vue";
 
 export const useRoutes = () => {
   const routes = [
     {
       path: "/",
       name: "home",
-      component: TodoView,
+      component: Home,
     },
   ];
 
