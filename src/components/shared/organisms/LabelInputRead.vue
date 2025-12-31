@@ -1,13 +1,12 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   delBorderT?: boolean;
   delBorderS?: boolean;
   delBorderE?: boolean;
   delBorderB?: boolean;
   title: string;
+  value: string;
 }>();
-
-const modelValue = defineModel<string>();
 </script>
 <template>
   <div
@@ -22,12 +21,13 @@ const modelValue = defineModel<string>();
     <div class="w-25 px-3">{{ title }}</div>
     <div class="w-75 border-s px-3 bg-white">
       <v-text-field
-        required
+        :readonly="true"
         density="compact"
         variant="outlined"
         class="mt-4"
-        v-model="modelValue"
-      ></v-text-field>
+      >
+        {{ value }}
+      </v-text-field>
     </div>
   </div>
 </template>

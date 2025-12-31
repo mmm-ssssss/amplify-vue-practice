@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { spec } from "node:test/reporters";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -7,11 +8,57 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  Dogs: a
     .model({
-      content: a.string(),
+      id: a.id().required(),
+      name: a.string().required(),
+      species: a.string().required(),
+      hospitalId: a.string().required(),
+      hospital: a.belongsTo("Hospitals", "hospitalId"),
+      createdAt: a.datetime(),
+      createdBy: a.string().required(),
+      user: a.belongsTo("Users", "createdBy"),
+      updatedAt: a.string(),
+      updatedBy: a.string(),
     })
-    .authorization((allow) => [allow.owner()]),
+    .identifier(["id"])
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+      allow.owner(),
+    ]),
+  Users: a
+    .model({
+      dogs: a.hasMany("Dogs", "createdBy"),
+      id: a.id().required(),
+      name: a.string().required(),
+      hospitalId: a.string().required(),
+      hospital: a.belongsTo("Hospitals", "hospitalId"),
+      createdAt: a.datetime(),
+      createdBy: a.string().required(),
+      updatedAt: a.string(),
+      updatedBy: a.string(),
+    })
+    .identifier(["id"])
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+      allow.owner(),
+    ]),
+  Hospitals: a
+    .model({
+      dogs: a.hasMany("Dogs", "hospitalId"),
+      users: a.hasMany("Users", "hospitalId"),
+      id: a.id().required(),
+      name: a.string().required(),
+      createdAt: a.datetime(),
+      createdBy: a.string().required(),
+      updatedAt: a.string(),
+      updatedBy: a.string(),
+    })
+    .identifier(["id"])
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+      allow.owner(),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
